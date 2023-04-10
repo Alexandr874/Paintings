@@ -4,7 +4,7 @@
 const forms = ( ) => {
     const form = document.querySelectorAll('form'),
           inputs = document.querySelectorAll('input'),
-          upload = document.querySelectorAll('[name="upload"]');
+          upload = document.querySelectorAll('[name="upload"]'); //инпут для ввода файла(с фоткой)
           
 
           //checkNumInput('input[name="user_phone"]');
