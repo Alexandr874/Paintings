@@ -1,5 +1,72 @@
+// Решение, когда стили подгружаются с сервера
+import { getResource } from "../servises/requests";
 
-const showMoreStyles = (trigger, styles) => {
+const showMoreStyles = (trigger, wrapper) => {
+    const btn = document.querySelector(trigger);
+
+  
+
+    btn.addEventListener('click', function() {
+        getResource('http://localhost:3000/styles')
+            .then(res => createCards(res))
+            .catch(error => console.log(error));
+            
+            this.remove();
+    });
+
+    function createCards(response) {
+        response.forEach(({src, title, link}) => {
+            let card = document.createElement('div');
+
+            card.classList.add('animated', 'fadeInUp', 'col-sm-3', 'col-sm-offset-0', 'col-xs-10', 'col-xs-offset-1');
+
+            card.innerHTML = `
+            <div class="styles-block">
+                <img src=${src} alt="style">
+                <h4>${title}</h4>
+                <a href=${link}>Подробнее</a>
+           </div>
+            `;
+
+            document.querySelector(wrapper).appendChild(card);
+
+        });
+    }
+
+
+};
+
+/* Функция `showMoreStyles` принимает два параметра: `trigger` и `wrapper`. 
+
+`trigger` - это селектор элемента, на который повешен обработчик события "click". 
+
+`wrapper` - это селектор элемента, в который будут добавляться карточки со стилями. 
+
+Функция создает обработчик события "click" на элементе селектора `trigger`. При клике на этот элемент, функция 
+`getResource` отправляет GET запрос на сервер по адресу `http://localhost:3000/styles`. Если запрос успешен, то 
+вызывается функция `createCards` и передается в нее ответ сервера (`res`). Если запрос не удался, то будет выведена 
+ошибка в консоль. 
+
+Функция `createCards` принимает ответ сервера и для каждого объекта в массиве `response` создает карточку со стилем, 
+используя `document.createElement`, задает ей классы и заполняет содержимое HTML-кода. Созданная карточка добавляется 
+внутрь элемента, выбранного по селектору `wrapper`. 
+
+После вызова функции `getResource` и добавления новых карточек, элемент с селектором `trigger` удаляется из DOM 
+дерева. 
+
+Функция `showMoreStyles` экспортируется по умолчанию из модуля. */
+
+export default showMoreStyles;
+
+
+
+
+
+// Решение задачи, если все стили  присудствуют в 
+// в html документе
+
+
+/* const showMoreStyles = (trigger, styles) => {
     const cards = document.querySelectorAll(styles),
           btn = document.querySelector(trigger);
 
@@ -13,12 +80,12 @@ const showMoreStyles = (trigger, styles) => {
             card.classList.add('col-sm-3', 'col-sm-offset-0', 'col-xs-10', 'col-xs-offset-1');
         });
         
-        btn.remove();
+         btn.remove();
     });
 };
 
 export default showMoreStyles;
-
+ */
 /* Эта функция показывает дополнительные элементы стилей на странице, когда пользователь 
 кликает на кнопку, указанную в аргументе "trigger".
 
