@@ -4,6 +4,7 @@ import forms from "./modules/forms";
 import mask from "./modules/mask";
 import checkTextInput from "./modules/checkTextInput"; 
 import showMoreStyles from "./modules/showMoreStyles";
+import calc from "./modules/calc";
 
 
 
@@ -18,5 +19,6 @@ window.addEventListener('DOMContentLoaded', () => {
     checkTextInput('[name="name"]');
     checkTextInput('[name="message"]');
     showMoreStyles('.button-styles', '#styles .row');
+    calc('#size', '#material', '#options', '.promocode', '.calc-price');
 
 });
