@@ -1,7 +1,7 @@
 
 import { postData } from "../servises/requests";
 
-const forms = ( ) => {
+const forms = (state) => {
     const form = document.querySelectorAll('form'),
           inputs = document.querySelectorAll('input'),
           upload = document.querySelectorAll('[name="upload"]'); //инпут для ввода файла(с фоткой)
@@ -102,14 +102,40 @@ const forms = ( ) => {
 
 
 
-              const formData = new FormData(item);
+              const formData = new FormData(item);    
+
+              if (item.classList.contains('calc_form')) {
+
+                for (const [key, value] of Object.entries(state)) {
+                if (typeof value === 'object') {
+                    formData.append(key, value.value + '___' + value.text);
+                } else {
+                    formData.append(key, value);
+                }
+            }
+         }
+                //Данный код выполняет следующие действия:
+
+                //Проверяет, есть ли у элемента, на котором вызвано это условие, класс 'calc_form'.
+                //Если такой класс есть, то выполняется цикл по всем элементам объекта state с помощью метода Object.
+                //entries().
+                //Внутри цикла проверяется тип значения свойства объекта. Если это объект, то значение поля value 
+                //объекта добавляется в FormData с ключом key, а также добавляется строка, состоящая из разделителя 
+                //'___' и значения поля text объекта. Если значение свойства не является объектом, то оно добавляется
+                //в FormData с ключом key.
+               // Если класс 'calc_form' отсутствует, то цикл не выполняется, и выполнение кода продолжается дальше.
+                
               
               // Создаем новую переменную, эта переменная будет формировать динамичексий путь, куда 
               // всё будем отправлять 
               let api;
+
               //при помощи метода (closest) проверяем есть ли такой блок, и отдаем днанные на определённый сервер
               // что бы данные уходили на разные сервера мы поставили логический оператор (или), и добавили в верстку
               // новый класс (calc_form), что бы с этой формы данные попадали на другой сервер
+
+             
+
               item.closest('.popup-design') || item.classList.contains('calc_form') ? api = path.designer : api = path.question;
               console.log(api);
               
@@ -127,6 +153,7 @@ const forms = ( ) => {
                     })
                     .finally(() => {
                         clearInputs();
+                        
                         setTimeout(() => {
                             statusMessage.remove();
                             item.style.display = 'block'; // что бы после удаления форма появилась, необходимо
@@ -135,6 +162,7 @@ const forms = ( ) => {
                             item.classList.remove('fadeOutUp');
                             item.classList.add('fadeInUp');
                             item.reset();
+                            
                         }, 3000);  
                         
                     });
