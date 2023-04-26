@@ -6,6 +6,7 @@ import checkTextInput from "./modules/checkTextInput";
 import showMoreStyles from "./modules/showMoreStyles";
 import calc from "./modules/calc";
 import changeFormState from "./modules/changeFormState";
+import filter from "./modules/filter";
 
 
 
@@ -29,6 +30,7 @@ window.addEventListener('DOMContentLoaded', () => {
     showMoreStyles('.button-styles', '#styles .row');
     calc('#size', '#material', '#options', '.promocode', '.calc-price');
     changeFormState(calcState);
+    filter();
     
 
 });
