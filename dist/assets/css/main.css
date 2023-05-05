@@ -903,11 +903,41 @@ h4 {
 .often-questions .accordion-heading span {
   border-bottom: 2px dotted #333;
 }
-.often-questions .accordion-block {
-  margin-top: 1rem;
-  background-color: #f7e7e6;
-  padding: 3rem 4rem;
+
+/* добавили блок с классом (active-style) для того, что бы стилизовать параграф */
+.often-questions p.active-style span {
+   color: #E950D7;
+   font-weight: 900;
+   text-decoration: none;
+   border: 0;
 }
+ /* добавили этот блог, потому что он при помощи класса активности (active+.accordion-block)
+ плюс блок, будет открывать весь блок */
+.often-questions .accordion-heading.active+.accordion-block {
+    display: block;
+}
+ /* а в этом блоке наобород блок поставили (display: none;) потому что все остальные блоки будут скрываться */
+ /* этот блок отвечает за скрытие блока с текстом */
+.often-questions .accordion-block {
+  background-color: #f7e7e6; /*  цвет блока */
+  max-height: 0; /*  установили высоту блока  */
+  opacity: 0; /* установили просзрачность блока */
+  transition: all 0.3 ease-out ; /* установили анимацию для всех блоков */
+  overflow: hidden; /* после заголовка идет псевдо элементн (before) и что бы в него не попасть , я его скрыл */
+  /* display: none;
+  margin-top: 1rem;
+  padding: 3rem 4rem; */
+}
+/* добавили класс (activ-content) это класс будет работать когда блок с текстом будет раскрываться  */
+.often-questions .accordion-block.activ-content {
+    overflow: visible;   
+    opacity: 1;
+    padding: 3rem 4rem; 
+    margin-top: 1rem;
+
+}
+
+
 .often-questions .accordion-block:before {
   content: '';
   position: absolute;
@@ -1259,6 +1289,25 @@ h4 {
   transform: translateX(-50%) !important;
   padding: 3rem 6rem 4rem 6rem;
 }
+
+.status {
+  text-align: center;
+}
+/* код который стилизует элемент прокрутки */
+.pageup {
+  opacity: 0;
+  width: 26px ;
+  height: 26px;
+  position: fixed;
+  bottom: 100px;
+  right: 5%;
+  z-index: 30;
+  background-color: #fff;
+  cursor: pointer;
+  border: 1px solid white;
+    transition: 1s all;
+}
+
 @media (max-width: 1399px) {
   .paints {
     display: none;
