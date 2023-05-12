@@ -42,13 +42,13 @@ const forms = (state) => {
           // установили обработчик событий , пересчитали все инпуты, и теперь он сработае, когда пользоватлеь
           // что то туда положит, например(фотографию)
           upload.forEach(item => {
-                item.addEventListener('input', () => {
-                    console.log(item.files[0]);
+                //item.addEventListener('input', () => {
+                  /*   console.log(item.files[0]);
                     // устанавливаем новую переменную, она будет отвечать за название файла, который мы будем 
                     // помещать на страницу, а конкретно за его колличство симвалов, потому что название файла 
                     // может быть очень длинным
                     let dots;
-                    item.files[0].name.split('.')[0].length > 5 ? dots = "..." : dots = '.';
+                    //item.files[0].name.split('.')[0].length > 6 ? dots = "..." : dots = '.';
                     // в этом выражении мы проверяем имя файла(item.files[0].name),после чего при помощи метода 
                     // (split) ищем точку между названием и форматом файла, после этого проверяем первое слово
                     // (split('.')[0]), если она будет больше 6 знаков(потому что отщёт начинается с нуля)
@@ -62,9 +62,19 @@ const forms = (state) => {
                     // для это надо ввести ещё одну переменную
                     const arr = item.files[0].name.split('.');
                     const name = arr[0].substring(0, 5) + dots + arr[1];
-                    // после того, как мы сформировали название файла, нам необходимо вставить его в элемент, который находится выше 
+                    // после того, как мы сформировали название файла, нам необходимо вставить его в элемент, 
+                    //который находится выше 
                     // инпута(файл не выбран) и вставить его нам поможет свойство (previousElementSibling)
-                    item.previousElementSibling.textContent = name;
+                    item.previousElementSibling.textContent = name; */
+
+                    item.addEventListener('input', () => {
+                        console.log(item.files[0]);
+                        let dots;
+                        const arr = item.files[0].name.split('.');
+            
+                        arr[0].length > 6 ? dots = "..." : dots = '.';
+                        const name = arr[0].substring(0, 6) + dots + arr[1];
+                        item.previousElementSibling.textContent = name;
                 });
           });
 
